@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Freehosts – Community-Driven Directory for Free Hosting Services</title>
+  <meta name="description" content="Freehosts is a Discord-powered community and directory to discover, review, and share free hosting services."/>
+  <meta name="keywords" content="free web hosting, free hosting services, hosting directory, Discord hosting, Freehosts community" />
+  <meta name="author" content="Freehosts" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://freehosts.pro" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/Src/icons/logo.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/Src/icons/logo.png" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Freehosts – Free Hosting Directory & Community" />
+  <meta property="og:description" content="Explore verified and unverified free hosting offers. Join the Freehosts Discord community and discover reliable free hosting services." />
+  <meta property="og:image" content="/Src/icons/logo.png" />
+  <meta property="og:url" content="https://freehosts.pro/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Freehosts – Free Hosting Community" />
+  <meta name="twitter:description" content="Discover, rate, and share free hosting providers with the Freehosts Discord community." />
+  <meta name="twitter:image" content="https://freehosts.pro/Src/icons/logo.png" />
+
+  <!-- Structured Data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Freehosts",
+    "url": "https://freehosts.pro",
+    "logo": "https://freehosts.pro/Src/icons/logo.png",
+    "sameAs": [
+      "https://discord.com/invite/k9t2CbBxFs"
+    ],
+    "description": "Freehosts is a community-driven platform and directory for discovering and sharing free hosting services."
+  }
+  </script>
+
+  <!-- Structured Data: Website -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Freehosts",
+    "url": "https://freehosts.pro",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://freehosts.pro/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/Src/css/main.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+
+  <!-- JavaScript -->
+  <script src="/Src/js/index.js" defer></script>
+</head>
+
+
+  <body class="gradient-bg text-white min-h-screen">
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const widgetUrl =
+          "https://discord.com/api/guilds/1221389187719102514/widget.json";
+        const inviteUrl =
+          "https://discord.com/api/v9/invites/k9t2CbBxFs?with_counts=true&with_expiration=true";
+
+        const [
+          onlineEl,
+          idleEl,
+          dndEl,
+          totalOnlineEl,
+          totalMembersEl,
+          nameEl,
+          iconEl,
+        ] = [
+          "stat-online",
+          "stat-idle",
+          "stat-dnd",
+          "stat-total-online",
+          "stat-total-members",
+          "server-name",
+          "server-icon",
+        ].map((id) => document.getElementById(id));
+
+        try {
+          const [widgetRes, inviteRes] = await Promise.all([
+            fetch(widgetUrl),
+            fetch(inviteUrl),
+          ]);
+
+          const widgetData = await widgetRes.json();
+          const inviteData = await inviteRes.json();
+
+          const statuses = { online: 0, idle: 0, dnd: 0 };
+          widgetData.members?.forEach((m) => {
+            if (statuses[m.status] !== undefined) statuses[m.status]++;
+          });
+
+          onlineEl.textContent = `${statuses.online} Online`;
+          idleEl.textContent = `${statuses.idle} Idle`;
+          dndEl.textContent = `${statuses.dnd} DND`;
+          totalOnlineEl.textContent = `${
+            widgetData.presence_count || 0
+          } Total Online`;
+
+          const memberCount = inviteData?.profile?.member_count || "—";
+          const guildName = inviteData?.guild?.name || "Discord Server";
+          const guildIcon = inviteData?.guild?.icon
+            ? `https://cdn.discordapp.com/icons/${inviteData.guild.id}/${inviteData.guild.icon}.png`
+            : "";
+
+          totalMembersEl.textContent = `${memberCount} Members`;
+          nameEl.textContent = guildName;
+        } catch (err) {
+          console.error("Failed to load Discord stats:", err);
+        }
+      });
+    </script>
+    <div
+      class="glow fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+    ></div>
+
+    <header
+      class="fixed w-full z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-800"
+    >
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div
+            class="flex items-center gap-3 fade-in"
+            style="
+              opacity: 1;
+              transform: translateY(0px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <img
+              src="./Src/icons/logo.png"
+              alt="Logo"
+              class="rounded-lg h-10 w-10"
+            />
+            <span
+              class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600"
+            >
+              FreeHosts
+            </span>
+          </div>
+          <nav class="hidden md:block">
+            <ul class="flex space-x-8">
+              <li>
+                <a
+                  href="#home"
+                  class="nav-link text-gray-300 hover:text-blue-400"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="nav-link text-gray-300 hover:text-blue-400"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#screenshots"
+                  class="nav-link text-gray-300 hover:text-blue-400"
+                  >Screenshots</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#team"
+                  class="nav-link text-gray-300 hover:text-blue-400"
+                  >Team</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#faq"
+                  class="nav-link text-gray-300 hover:text-blue-400"
+                  >FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contacts"
+                  class="nav-link text-gray-300 hover:text-blue-400"
+                  >Contacts</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section id="home" class="pt-32 pb-20 relative overflow-hidden">
+      <div class="container mx-auto px-6 text-center relative z-10">
+        <div class="max-w-4xl mx-auto">
+          <h1
+            class="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600 fade-in"
+            style="
+              opacity: 1;
+              transform: translateY(0px);
+              transition: 0.6s ease-out;
+            "
+          >
+            Welcome to Freehosts
+          </h1>
+          <p
+            class="text-xl text-gray-400 mb-10 fade-in"
+            style="
+              opacity: 1;
+              transform: translateY(0px);
+              transition: 0.6s ease-out;
+            "
+          >
+            Server with a lot of free hostings. We also have scam hostings, free
+            russian hostings, scam russian hostings and more. In our list, there
+            are more than 200+ free hostings! We are existing 1 year already.
+            Join today!
+          </p>
+
+          <div
+            class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16 fade-in"
+            style="
+              opacity: 1;
+              transform: translateY(0px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <a
+              href="https://discord.gg/k9t2CbBxFs"
+              target="_blank"
+              class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl text-lg font-semibold hover:from-blue-500 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-blue-500/25 gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                data-lucide="message-square"
+                class="lucide lucide-message-square h-5 w-5"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                ></path>
+              </svg>
+              Join Discord
+            </a>
+
+            <a
+              href="https://www.trustpilot.com/review/freehosts.quitprojects.pro"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl text-lg font-semibold hover:from-emerald-500 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-emerald-500/25 gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                data-lucide="star"
+                class="lucide lucide-star h-5 w-5"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              Review on Trustpilot
+            </a>
+          </div>
+
+          <div class="widget-container">
+            <div class="server-header">
+              <div class="server-icon">F</div>
+              <div class="server-info">
+                <div id="server-name" class="server-name">FreeHosts</div>
+                <div class="server-stats">
+                  <div class="stat">
+                    <span class="stat-dot online-dot"></span
+                    ><span id="stat-online">Loading...</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-dot idle-dot"></span
+                    ><span id="stat-idle">Loading...</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-dot dnd-dot"></span
+                    ><span id="stat-dnd">Loading...</span>
+                  </div>
+                  <div class="stat">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <circle cx="9" cy="7" r="4" />
+                    </svg>
+                    <span id="stat-total-online">Loading...</span>
+                  </div>
+
+                  <div class="stat">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <circle cx="9" cy="7" r="4" />
+                    </svg>
+                    <span id="stat-total-members">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a
+              href="https://discord.gg/k9t2CbBxFs"
+              target="_blank"
+              class="join-button"
+            >
+              <i data-lucide="discord" width="18" height="18"></i>
+              Join Server
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-20 relative">
+      <div class="container mx-auto px-6 text-center">
+        <h2
+          class="text-4xl font-bold mb-8 fade-in"
+          style="
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.6s ease-out;
+          "
+        >
+          About Us
+        </h2>
+        <div class="card-gradient rounded-2xl p-8 max-w-3xl mx-auto">
+          <p
+            class="text-lg text-gray-300 leading-relaxed fade-in"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            Welcome to a FreeHosts server. A server, where you can find a lot of
+            free hostings, scam hostings and scam persons. You can add ur
+            hosting, and even if its not ur hostings u still can add it. Server
+            was made by itsoffkey, and was made with
+            <span class="text-red-400">💗</span>. The server is existing 2 years
+            already, and in our discord server there are 300+ members.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenshots" class="py-20 relative">
+      <div class="container mx-auto px-6 text-center">
+        <h2
+          class="text-4xl font-bold mb-12 fade-in"
+          style="
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.6s ease-out;
+          "
+        >
+          Screenshots
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="group relative overflow-hidden rounded-2xl shadow-xl fade-in cursor-pointer"
+            onclick="openModal('/static/images/screenshot.png')"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <img
+              src="./Src/images/screenshots/screenshot.png"
+              alt="Screenshot 1"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+          </div>
+          <div
+            class="group relative overflow-hidden rounded-2xl shadow-xl fade-in cursor-pointer"
+            onclick="openModal('/static/images/screenshot2.png')"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <img
+              src="./Src/images/screenshots/screenshot2.png"
+              alt="Screenshot 2"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+          </div>
+          <div
+            class="group relative overflow-hidden rounded-2xl shadow-xl fade-in cursor-pointer"
+            onclick="openModal('/static/images/screenshot3.png')"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <img
+              src="./Src/images/screenshots/screenshot3.png"
+              alt="Screenshot 3"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="py-20 relative">
+      <div class="container mx-auto px-6 text-center">
+        <h2
+          class="text-4xl font-bold mb-12 fade-in"
+          style="
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.6s ease-out;
+          "
+        >
+          Our Features
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="card-gradient p-8 rounded-2xl shadow-lg hover:shadow-blue-500/10 transition-all duration-300 fade-in"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              data-lucide="infinity"
+              class="lucide lucide-infinity h-12 w-12 text-blue-400 mx-auto mb-6"
+            >
+              <path
+                d="M6 16c5 0 7-8 12-8a4 4 0 0 1 0 8c-5 0-7-8-12-8a4 4 0 1 0 0 8"
+              ></path>
+            </svg>
+            <h3 class="text-2xl font-bold mb-4">Free Forever</h3>
+            <p class="text-gray-400">Our list is completely free.</p>
+          </div>
+          <div
+            class="card-gradient p-8 rounded-2xl shadow-lg hover:shadow-blue-500/10 transition-all duration-300 fade-in"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              data-lucide="heart-handshake"
+              class="lucide lucide-heart-handshake h-12 w-12 text-blue-400 mx-auto mb-6"
+            >
+              <path
+                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+              ></path>
+              <path
+                d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"
+              ></path>
+              <path d="m18 15-2-2"></path>
+              <path d="m15 18-2-2"></path>
+            </svg>
+            <h3 class="text-2xl font-bold mb-4">Kind Admins</h3>
+            <p class="text-gray-400">
+              Our admins and our staff are always ready to help!
+            </p>
+          </div>
+          <div
+            class="card-gradient p-8 rounded-2xl shadow-lg hover:shadow-blue-500/10 transition-all duration-300 fade-in"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              data-lucide="list"
+              class="lucide lucide-list h-12 w-12 text-blue-400 mx-auto mb-6"
+            >
+              <path d="M3 12h.01"></path>
+              <path d="M3 18h.01"></path>
+              <path d="M3 6h.01"></path>
+              <path d="M8 12h13"></path>
+              <path d="M8 18h13"></path>
+              <path d="M8 6h13"></path>
+            </svg>
+            <h3 class="text-2xl font-bold mb-4">Big List</h3>
+            <p class="text-gray-400">
+              In our free hostings list, there are more than 100+ hostings!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+<section id="team" class="py-20 relative">
+  <div class="container mx-auto px-6 text-center">
+    <h2
+      class="text-4xl font-bold mb-12 fade-in"
+      style="opacity: 0; transform: translateY(20px); transition: 0.6s ease-out;"
+    >
+      Our Team
+    </h2>
+    <div id="team-grid" class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    </div>
+  </div>
+</section>
+
+    <section id="faq" class="py-20 relative">
+      <div class="container mx-auto px-6">
+        <h2
+          class="text-4xl font-bold text-center mb-12 fade-in"
+          style="
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.6s ease-out;
+          "
+        >
+          FAQ
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-6">
+          <div
+            class="faq-card card-gradient p-6 rounded-xl fade-in"
+            onclick="toggleAnswer(1)"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">Where i can find hostings?</h3>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                data-lucide="chevron-down"
+                class="lucide lucide-chevron-down h-6 w-6 text-blue-400 transition-transform duration-300"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </div>
+            <div id="answer1" class="faq-answer">
+              <p class="text-gray-300">
+                You can find hostings in our discord server:
+                <a
+                  href="https://discord.gg/k9t2CbBxFs"
+                  target="_blank"
+                  class="text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  https://discord.gg/k9t2CbBxFs
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="faq-card card-gradient p-6 rounded-xl fade-in"
+            onclick="toggleAnswer(2)"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">Is this free?</h3>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                data-lucide="chevron-down"
+                class="lucide lucide-chevron-down h-6 w-6 text-blue-400 transition-transform duration-300"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </div>
+            <div id="answer2" class="faq-answer">
+              <p class="text-gray-300">
+                Yes. All our services is fully <strong>free</strong>.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="faq-card card-gradient p-6 rounded-xl fade-in"
+            onclick="toggleAnswer(3)"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">How much there are hostings?</h3>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                data-lucide="chevron-down"
+                class="lucide lucide-chevron-down h-6 w-6 text-blue-400 transition-transform duration-300"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </div>
+            <div id="answer3" class="faq-answer">
+              <p class="text-gray-300">Around 200+ free hostings.</p>
+            </div>
+          </div>
+
+          <div
+            class="faq-card card-gradient p-6 rounded-xl fade-in"
+            onclick="toggleAnswer(4)"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">How i can apply an hosting?</h3>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                data-lucide="chevron-down"
+                class="lucide lucide-chevron-down h-6 w-6 text-blue-400 transition-transform duration-300"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </div>
+            <div id="answer4" class="faq-answer">
+              <p class="text-gray-300">
+                1. Search this hosting, if its not in our list, then you can
+                apply the hosting. Use commands such as !searchhosting or
+                ?ask.<br />
+                2. If the hostings is not existing in our list, go to
+                #add-your-hosting channel, read the rules.<br />
+                3. Create a new post, and fill out the information using the
+                form from rules.<br />
+                4. Done! Wait for admins/supervisors.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="faq-card card-gradient p-6 rounded-xl fade-in"
+            onclick="toggleAnswer(5)"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">What to do if i got ban?</h3>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                data-lucide="chevron-down"
+                class="lucide lucide-chevron-down h-6 w-6 text-blue-400 transition-transform duration-300"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </div>
+            <div id="answer5" class="faq-answer">
+              <p class="text-gray-300">
+                First look at the reason. If there is no reason, dm itsoffkey,
+                wigglycornet or p451.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="faq-card card-gradient p-6 rounded-xl fade-in"
+            onclick="toggleAnswer(6)"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">
+                As host owner, what i need to do so i will not get in scam/bad
+                hostings?
+              </h3>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                data-lucide="chevron-down"
+                class="lucide lucide-chevron-down h-6 w-6 text-blue-400 transition-transform duration-300"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </div>
+            <div id="answer6" class="faq-answer">
+              <p class="text-gray-300">
+                • Respect all members<br />
+                • Don't abuse<br />
+                • Store password in a safe place and make sure that all
+                passwords is encrypted<br />
+                • Do not leak personal info of your members<br />
+                • Make sure that your hosting have an anti-ddos<br />
+                • Do not black advertising<br />
+                • Do not scam your members<br />
+                • Make sure you have normal uptime<br />
+                • Make sure you will not have a data losses<br />
+                • Do not put webminer on the site, panel, etc<br />
+                • Do not refuse to send payment screenshots<br />
+                • BUT! Send only to: @itsoffkey or @playstation451<br />
+                • Always have a ToS and Privacy Policy
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacts" class="py-20 relative">
+      <div class="container mx-auto px-6 text-center">
+        <h2
+          class="text-4xl font-bold mb-12 fade-in"
+          style="
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.6s ease-out;
+          "
+        >
+          Contacts
+        </h2>
+        <div
+          class="flex flex-col md:flex-row items-stretch justify-center gap-8 max-w-4xl mx-auto"
+        >
+          <div
+            class="card-gradient p-8 rounded-xl flex-1 fade-in"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              data-lucide="mail"
+              class="lucide lucide-mail h-12 w-12 text-blue-400 mx-auto mb-6"
+            >
+              <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            </svg>
+            <h3 class="text-xl font-bold mb-6">Emails</h3>
+            <div class="space-y-3 text-gray-300">
+              <p>
+                <a href="mailto:support@quitprojects.pro"
+                  >support@quitprojects.pro</a
+                >
+              </p>
+              <p>
+                <a href="mailto:raphaelcustos@gmail.com"
+                  >raphaelcustos@gmail.com</a
+                >
+              </p>
+              <p>
+                <a href="mailto:quitgroup007@gmail.com"
+                  >quitgroup007@gmail.com</a
+                >
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex items-center justify-center px-8 fade-in"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <p class="text-2xl font-bold text-gray-400">OR</p>
+          </div>
+          <div
+            class="card-gradient p-8 rounded-xl flex-1 fade-in"
+            style="
+              opacity: 0;
+              transform: translateY(20px);
+              transition: 0.6s ease-out;
+            "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              data-lucide="users"
+              class="lucide lucide-users h-12 w-12 text-blue-400 mx-auto mb-6"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+            </svg>
+            <h3 class="text-xl font-bold mb-6">Staff Contact</h3>
+            <p class="text-gray-300">DM to anyone from our staff.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-12 bg-gray-900/50 border-t border-gray-800">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <img
+                src="./Src/icons/logo.png"
+                alt="Logo"
+                class="rounded-lg h-10 w-10"
+              />
+              <h3 class="text-2xl font-bold">FreeHosts</h3>
+            </div>
+            <p class="text-gray-400">
+              2024 – <span id="current-year">2025</span>
+            </p>
+          </div>
+
+          <div class="md:col-span-2">
+            <div class="grid grid-cols-2 gap-8">
+              <div>
+                <h4 class="text-lg font-bold mb-4">Links</h4>
+                <ul class="space-y-2">
+                  <li>
+                    <a
+                      href="https://www.trustpilot.com/review/freehosts.quitprojects.pro"
+                      target="_blank"
+                      class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        data-lucide="star"
+                        class="lucide lucide-star h-4 w-4"
+                      >
+                        <path
+                          d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                        ></path>
+                      </svg>
+                      TrustPilot
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://discord.gg/k9t2CbBxFs"
+                      target="_blank"
+                      class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        data-lucide="message-square"
+                        class="lucide lucide-message-square h-4 w-4"
+                      >
+                        <path
+                          d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                        ></path>
+                      </svg>
+                      Discord
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-lg font-bold mb-4">Contact</h4>
+                <ul class="space-y-2 text-gray-400">
+                  <li class="flex items-center gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      data-lucide="mail"
+                      class="lucide lucide-mail h-4 w-4"
+                    >
+                      <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                      <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    </svg>
+                    <p>
+                      <a
+                        href="mailto:support@quitprojects.pro"
+                        class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2"
+                        >support@quitprojects.pro
+                      </a>
+                    </p>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      data-lucide="mail"
+                      class="lucide lucide-mail h-4 w-4"
+                    >
+                      <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                      <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    </svg>
+                    <p>
+                      <a
+                        href="mailto:raphaelcustos@gmail.com"
+                        class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2"
+                        >raphaelcustos@gmail.com</a
+                      >
+                    </p>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      data-lucide="mail"
+                      class="lucide lucide-mail h-4 w-4"
+                    >
+                      <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                      <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    </svg>
+                    <p>
+                      <a
+                        href="mailto:quitgroup007@gmail.com"
+                        class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2"
+                        >quitgroup007@gmail.com</a
+                      >
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center border-t border-gray-800 pt-8">
+          <p class="text-gray-400">
+            All rights are reserved. Copying this site is forbidden! Developed
+            by itsoffkey and wisard_gaming.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      id="screenshot-modal"
+      class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden"
+    >
+      <div class="relative max-w-4xl w-full">
+        <img
+          id="modal-image"
+          src=""
+          alt="Screenshot"
+          class="w-full h-auto rounded-lg"
+        />
+        <button
+          id="close-modal"
+          class="absolute top-4 right-4 bg-gray-900/80 p-2 rounded-full hover:bg-gray-800 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            data-lucide="x"
+            class="lucide lucide-x h-6 w-6 text-white"
+          >
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <iframe
+      height="1"
+      width="1"
+      style="
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        border: none;
+        visibility: hidden;
+      "
+    ></iframe>
+  </body>
+</html>
